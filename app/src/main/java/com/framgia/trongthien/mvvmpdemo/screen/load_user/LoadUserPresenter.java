@@ -1,7 +1,5 @@
 package com.framgia.trongthien.mvvmpdemo.screen.load_user;
 
-import android.util.Log;
-
 import com.framgia.trongthien.mvvmpdemo.data.model.User;
 import com.framgia.trongthien.mvvmpdemo.data.source.UserRepository;
 

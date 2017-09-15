@@ -3,9 +3,13 @@ package com.framgia.trongthien.mvvmpdemo.screen.login;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
+import android.databinding.Observable;
+import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.trongthien.mvvmpdemo.screen.load_user.LoadUserActivity;
 
 /**
@@ -13,9 +17,10 @@ import com.framgia.trongthien.mvvmpdemo.screen.load_user.LoadUserActivity;
  */
 
 public class LoginViewModel extends BaseObservable implements LoginContract.ViewModel {
-    private String username;
+
     private LoginContract.Presenter presenter;
     private Context context;
+    private ObservableField<String> username = new ObservableField<>();
 
     public LoginViewModel(Context context) {
         this.context = context;
@@ -29,22 +34,27 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
         this.presenter = presenter;
     }
 
-    public String getUsername() {
+    public ObservableField<String> getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(ObservableField<String> username) {
+        rx.Observable.just(username)
+                .subscribe(setName -> {
+                    this.username = username;
+                });
     }
 
     public void onBtnOkClick(View view) {
-        presenter.checkLogin(username);
+        presenter.checkLogin(username.get());
     }
 
     @Override
     public void loginSuccess() {
         Toast.makeText(context, "Login success", Toast.LENGTH_SHORT).show();
-        context.startActivity(new Intent(context, LoadUserActivity.class));
+        Intent intent = new Intent(context, LoadUserActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
     }
 
     @Override

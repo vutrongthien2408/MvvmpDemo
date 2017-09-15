@@ -1,13 +1,6 @@
 package com.framgia.trongthien.mvvmpdemo.screen.login;
 
-import android.util.Log;
-
-import com.framgia.trongthien.mvvmpdemo.data.model.User;
 import com.framgia.trongthien.mvvmpdemo.data.source.UserRepository;
-import com.framgia.trongthien.mvvmpdemo.screen.load_user.LoadUserContract;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by TrongThien on 9/15/2017.

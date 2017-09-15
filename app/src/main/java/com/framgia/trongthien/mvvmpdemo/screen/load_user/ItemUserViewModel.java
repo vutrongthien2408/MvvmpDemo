@@ -2,32 +2,33 @@ package com.framgia.trongthien.mvvmpdemo.screen.load_user;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.ObservableField;
 
 import com.framgia.trongthien.mvvmpdemo.data.model.User;
+
+import rx.Observable;
 
 /**
  * Created by TrongThien on 9/15/2017.
  */
 
 public class ItemUserViewModel extends BaseObservable {
-    @Bindable
-    private String username;
-    @Bindable
-    private String address;
 
-    private User user;
+    private ObservableField<User> user = new ObservableField<>();
 
     public ItemUserViewModel(User user) {
-        this.user = user;
-        username = user.getUsername();
-        address = user.getAddress();
+        Observable.just(user)
+                .subscribe(setUser -> {
+                    this.user.set(user);
+                });
     }
 
     public String getUsername() {
-        return username;
+        return user.get().getUsername();
     }
 
     public String getAddress() {
-        return address;
+        return user.get().getAddress();
     }
+
 }
